@@ -118,60 +118,6 @@ function viewPrompt() {
         }
     });
 }
-
-//View Functions
-
-function viewRole() {
-
-  var query = "SELECT * FROM role";
-    connection.query(query,function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        runPrompt()
-    });
-};
-
-function viewDepartment() {
-
-  var query = "SELECT * FROM department";
-    connection.query(query,function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        runPrompt()
-    });
-};
-
-function viewDepartment() {
-
-  var query = "SELECT * FROM employee";
-    connection.query(query,function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        runPrompt()
-    });
-};
-
-//End View Functions
-
-function artistSearch() {
-  inquirer
-    .prompt({
-      name: "artist",
-      type: "input",
-      message: "What artist would you like to search for?"
-    })
-    .then(function(answer) {
-      var query = "SELECT position, song, year FROM topsongs WHERE ?";
-      connection.query(query, { artist: answer.artist }, function(err, res) {
-        if (err) throw err;
-        for (var i = 0; i < res.length; i++) {
-          console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
-        }
-        runSearch();
-      });
-    });
-}
-
 function updatePrompt() {
     inquirer
       .prompt({
@@ -200,6 +146,123 @@ function updatePrompt() {
         }
     });
 }
+
+// Start View Functions
+
+function viewRole() {
+
+  var query = "SELECT * FROM role";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+function viewDepartment() {
+
+  var query = "SELECT * FROM department";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+function viewEmployee() {
+
+  var query = "SELECT * FROM employee";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+//End View Functions
+
+//Start Add Functions
+
+function addDepartment() {
+  inquirer
+    .prompt({
+      name: "department",
+      type: "input",
+      message: "What department would you like to add?"
+    })
+    .then(function(answer) {
+      var query = "INSERT INTO department (name) VALUE (?)";
+      connection.query(query, [answer.department], function(err, res) {
+        if (err) throw err;
+        
+        viewDepartment();
+      });
+    });
+}
+
+function addRole() {
+    inquirer
+      .prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What is the title of the role you would like to add?"
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "What is the salary of the role you would like to add?"
+      },
+      {
+        name: "id",
+        type: "input",
+        message: "What department ID of the role you would like to add?"
+      }])
+      .then(function(answer) {
+        var query = "INSERT INTO role (title, salary, department_id) VALUE (?, ?, ?)";
+        connection.query(query, [answer.title, answer.salary, answer.id], function(err, res) {
+          if (err) throw err;
+          
+          viewRole();
+        });
+      });
+}
+
+function addEmployee() {
+    inquirer
+      .prompt([
+      {
+        name: "f_name",
+        type: "input",
+        message: "What is the employee's first name?"
+      },
+      {
+        name: "l_name",
+        type: "input",
+        message: "What is the employee's first name?"
+      },
+      {
+        name: "role_id",
+        type: "input",
+        message: "What is the employee's role id?"
+      },
+      {
+        name: "manager_id",
+        type: "input",
+        message: "What is the employee's manager id?"
+      },
+    ])
+      .then(function(answer) {
+        var query = "INSERT INTO employee (first_name, last_name, role_id , manager_id) VALUE (?, ?, ?, ?)";
+        connection.query(query, [answer.f_name, answer.l_name, answer.role_id, answer.manager_id], function(err, res) {
+          if (err) throw err;
+          
+          viewEmployee();
+        });
+      });
+}
+
+//End Add Functions
 
 function artistSearch() {
   inquirer
