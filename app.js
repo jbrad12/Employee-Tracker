@@ -119,6 +119,40 @@ function viewPrompt() {
     });
 }
 
+//View Functions
+
+function viewRole() {
+
+  var query = "SELECT * FROM role";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+function viewDepartment() {
+
+  var query = "SELECT * FROM department";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+function viewDepartment() {
+
+  var query = "SELECT * FROM employee";
+    connection.query(query,function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        runPrompt()
+    });
+};
+
+//End View Functions
+
 function artistSearch() {
   inquirer
     .prompt({
