@@ -45,6 +45,6 @@ run node app.js in terminal and follow on screen prompts
 
 ## ScreenShots
 
-![screenshot HW#11](/HomeWork11ss1.png?raw=true)
+![screenshot HW#11](/HW12#1.png?raw=true)
 
-![screenshot HW#11](/HomeWork11ss2.png?raw=true)
+![screenshot HW#11](/HW12#2.png?raw=true)
